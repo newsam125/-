@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子车间产品计算器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>电子车间产品计算器</h1>
+        <form id="wage-form">
+            <div class="form-group">
+                <label for="standardHourlyRate">标准工时(元/小时):</label>
+                <input type="number" id="standardHourlyRate" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="component-count">BOM中元器件数量:</label>
+                <input type="number" id="component-count" required min="1">
+            </div>
+            <div class="form-group">
+                <label>产品类型:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="product-type" value="industrial" required> 工业产品</label>
+                    <label><input type="radio" name="product-type" value="military"> 军用产品</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>产品分类:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="electronic-product-type" value="normal" required> 正常</label>
+                    <label><input type="radio" name="electronic-product-type" value="technical-reform"> 技改</label>
+                    <label><input type="radio" name="electronic-product-type" value="maintenance"> 维修</label>
+                </div>
+            </div>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+    <script src="electronic.js"></script>
+</body>
+</html>

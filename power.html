@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动力车间产品计算器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>动力车间产品计算器</h1>
+        <form id="wage-form">
+            <div class="form-group">
+                <label for="standardHourlyRate">标准工时(元/小时):</label>
+                <input type="number" id="standardHourlyRate" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="unit-power">机组功率(kW):</label>
+                <input type="number" id="unit-power" required min="1">
+            </div>
+            <div class="form-group">
+                <label>产品类型:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="product-type" value="diesel" required> 柴油机</label>
+                    <label><input type="radio" name="product-type" value="electric"> 电动机</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>机组类型:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="unit-type" value="fixed" required> 固定机组</label>
+                    <label><input type="radio" name="unit-type" value="mobile"> 移动机组</label>
+                    <label><input type="radio" name="unit-type" value="box-installation"> 箱式安装</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>机组难度:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="unit-difficulty" value="simple" required> 简单</label>
+                    <label><input type="radio" name="unit-difficulty" value="medium"> 中等</label>
+                    <label><input type="radio" name="unit-difficulty" value="complex"> 复杂</label>
+                </div>
+            </div>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+    <script src="power.js"></script>
+</body>
+</html>
