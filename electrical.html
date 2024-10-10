@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电气车间产品计算器</title>
+    <title>电气车间产品计算器 - 广州三业科技</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>电气车间产品计算器</h1>
-        <form id="wage-form">
+        <header>
+            <h1>广州三业科技</h1>
+            <h2>电气车间产品计算器</h2>
+        </header>
+        <form id="wage-form" class="compact-form">
             <div class="form-group">
                 <label for="standardHourlyRate">标准工时(元/小时):</label>
-                <input type="number" id="standardHourlyRate" class="form-control" required>
+                <input type="number" id="standardHourlyRate" class="form-control" required value="30">
             </div>
             <div class="form-group">
                 <label for="wire-count">接线数量:</label>
@@ -21,21 +24,26 @@
             <div class="form-group">
                 <label>柜体大小:</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="cabinet-size" value="small" required> 小</label>
-                    <label><input type="radio" name="cabinet-size" value="medium"> 中</label>
-                    <label><input type="radio" name="cabinet-size" value="large"> 大</label>
+                    <label><input type="radio" name="cabinet-size" value="small" required>小</label>
+                    <label><input type="radio" name="cabinet-size" value="medium">中</label>
+                    <label><input type="radio" name="cabinet-size" value="large">大</label>
                 </div>
             </div>
             <div class="form-group">
                 <label>产品分类:</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="electrical-product-type" value="normal" required> 正常</label>
-                    <label><input type="radio" name="electrical-product-type" value="technical-reform"> 技改</label>
-                    <label><input type="radio" name="electrical-product-type" value="maintenance"> 维修</label>
+                    <label><input type="radio" name="electrical-product-type" value="normal" required>正常</label>
+                    <label><input type="radio" name="electrical-product-type" value="technical-reform">技改</label>
+                    <label><input type="radio" name="electrical-product-type" value="maintenance">维修</label>
                 </div>
             </div>
         </form>
         <div id="result" class="result"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">返回首页</a></li>
+            </ul>
+        </nav>
     </div>
     <script src="electrical.js"></script>
 </body>
