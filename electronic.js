@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const productCategory = document.querySelector('input[name="electronic-product-type"]:checked').value;
 
         // 计算难度系数
-        const difficultyCoefficent = Math.ceil(componentCount / 25);
+        const difficultyCoefficent = Math.ceil(componentCount / 30);
 
         // 确定产品类型系数
-        const productTypeCoefficent = productType === 'industrial' ? 1 : 1.5;
+        const productTypeCoefficent = productType === 'industrial' ? 1.5 : 2;
 
         // 确定产品分类系数
         let productCategoryCoefficent;
