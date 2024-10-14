@@ -3,13 +3,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultElement = document.getElementById('result');
 
     function calculateWage() {
-        // ... (保持原有的计算逻辑不变)
+        const standardHourlyRate = parseFloat(document.getElementById('standardHourlyRate').value);
+        const componentCount = parseInt(document.getElementById('component-count').value);
+        const productType = document.querySelector('input[name="product-type"]:checked').value;
+        const productCategory = document.querySelector('input[name="electronic-product-type"]:checked').value;
+
+        // 计算难度系数
+        const difficultyCoefficent = Math.ceil(componentCount / 25);
+
+        // 确定产品类型系数
+        let productTypeCoefficent;
+        switch (productType) {
+            case 'industrial': productTypeCoefficent = 2; break; // 更新为工业产品系数
+            case 'military': productTypeCoefficent = 2.5; break; // 更新为军用产品系数
+        }
+
+        // 确定产品分类系数
+        let productCategoryCoefficent;
+        switch (productCategory) {
+            case 'normal': productCategoryCoefficent = 1; break;
+            case 'technical-reform': productCategoryCoefficent = 1.5; break;
+            case 'maintenance': productCategoryCoefficent = 2; break;
+        }
+
+        // 计算工资
+        const wage = standardHourlyRate * difficultyCoefficent * productTypeCoefficent * productCategoryCoefficent;
+
+        return wage.toFixed(2); // 保留两位小数
     }
 
     function updateResult() {
         if (form.checkValidity()) {
             const wage = calculateWage();
-            resultElement.innerHTML = `计算结果：¥${wage}`;
+            resultElement.textContent = `计算结果：${wage} 元`;
             resultElement.style.display = 'block';
         } else {
             resultElement.style.display = 'none';
