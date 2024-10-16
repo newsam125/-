@@ -11,19 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
         // 计算难度系数
         const difficultyCoefficent = Math.ceil(componentCount / 25);
 
-        // 确定产品类型系数
+        // 获取产品类型系数
         let productTypeCoefficent;
-        switch (productType) {
-            case 'industrial': productTypeCoefficent = 2; break; // 更新为工业产品系数
-            case 'military': productTypeCoefficent = 2.5; break; // 更新为军用产品系数
+        if (productType === 'industrial') {
+            productTypeCoefficent = parseFloat(document.getElementById('industrial-coefficient').value);
+        } else {
+            productTypeCoefficent = parseFloat(document.getElementById('military-coefficient').value);
         }
 
-        // 确定产品分类系数
+        // 获取产品分类系数
         let productCategoryCoefficent;
         switch (productCategory) {
-            case 'normal': productCategoryCoefficent = 1; break;
-            case 'technical-reform': productCategoryCoefficent = 1.5; break;
-            case 'maintenance': productCategoryCoefficent = 2; break;
+            case 'normal':
+                productCategoryCoefficent = parseFloat(document.getElementById('normal-coefficient').value);
+                break;
+            case 'technical-reform':
+                productCategoryCoefficent = parseFloat(document.getElementById('technical-reform-coefficient').value);
+                break;
+            case 'maintenance':
+                productCategoryCoefficent = parseFloat(document.getElementById('maintenance-coefficient').value);
+                break;
         }
 
         // 计算工资

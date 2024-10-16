@@ -11,20 +11,32 @@ document.addEventListener('DOMContentLoaded', function() {
         // 计算难度系数
         const difficultyCoefficent = Math.ceil(wireCount / 30);
 
-        // 确定柜体大小系数
+        // 获取柜体大小系数
         let cabinetSizeCoefficent;
         switch (cabinetSize) {
-            case 'small': cabinetSizeCoefficent = 2; break;
-            case 'medium': cabinetSizeCoefficent = 3; break;
-            case 'large': cabinetSizeCoefficent = 4; break;
+            case 'small':
+                cabinetSizeCoefficent = parseFloat(document.getElementById('small-coefficient').value);
+                break;
+            case 'medium':
+                cabinetSizeCoefficent = parseFloat(document.getElementById('medium-coefficient').value);
+                break;
+            case 'large':
+                cabinetSizeCoefficent = parseFloat(document.getElementById('large-coefficient').value);
+                break;
         }
 
-        // 确定产品分类系数
+        // 获取产品分类系数
         let productCategoryCoefficent;
         switch (productCategory) {
-            case 'normal': productCategoryCoefficent = 1; break;
-            case 'technical-reform': productCategoryCoefficent = 1.5; break;
-            case 'maintenance': productCategoryCoefficent = 2; break;
+            case 'normal':
+                productCategoryCoefficent = parseFloat(document.getElementById('normal-coefficient').value);
+                break;
+            case 'technical-reform':
+                productCategoryCoefficent = parseFloat(document.getElementById('technical-reform-coefficient').value);
+                break;
+            case 'maintenance':
+                productCategoryCoefficent = parseFloat(document.getElementById('maintenance-coefficient').value);
+                break;
         }
 
         // 计算工资

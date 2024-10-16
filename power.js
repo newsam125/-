@@ -21,23 +21,37 @@ document.addEventListener('DOMContentLoaded', function() {
             difficultyCoefficent = 15;
         }
 
-        // 确定产品类型系数
-        const productTypeCoefficent = productType === 'diesel' ? 1 : 0.8;
+        // 获取产品类型系数
+        const productTypeCoefficent = productType === 'diesel' ? 
+            parseFloat(document.getElementById('diesel-coefficient').value) : 
+            parseFloat(document.getElementById('electric-coefficient').value);
 
-        // 确定机组类型系数
+        // 获取机组类型系数
         let unitTypeCoefficent;
         switch (unitType) {
-            case 'fixed': unitTypeCoefficent = 10; break;
-            case 'mobile': unitTypeCoefficent = 12; break;
-            case 'box-installation': unitTypeCoefficent = 13; break;
+            case 'fixed':
+                unitTypeCoefficent = parseFloat(document.getElementById('fixed-coefficient').value);
+                break;
+            case 'mobile':
+                unitTypeCoefficent = parseFloat(document.getElementById('mobile-coefficient').value);
+                break;
+            case 'box-installation':
+                unitTypeCoefficent = parseFloat(document.getElementById('box-installation-coefficient').value);
+                break;
         }
 
-        // 确定机组难度系数
+        // 获取机组难度系数
         let unitDifficultyCoefficent;
         switch (unitDifficulty) {
-            case 'simple': unitDifficultyCoefficent = 1; break;
-            case 'medium': unitDifficultyCoefficent = 1.5; break;
-            case 'complex': unitDifficultyCoefficent = 2; break;
+            case 'simple':
+                unitDifficultyCoefficent = parseFloat(document.getElementById('simple-coefficient').value);
+                break;
+            case 'medium':
+                unitDifficultyCoefficent = parseFloat(document.getElementById('medium-coefficient').value);
+                break;
+            case 'complex':
+                unitDifficultyCoefficent = parseFloat(document.getElementById('complex-coefficient').value);
+                break;
         }
 
         // 计算工资

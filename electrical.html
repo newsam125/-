@@ -22,19 +22,43 @@
                 <input type="number" id="wire-count" required min="1">
             </div>
             <div class="form-group">
-                <label>柜体大小:</label>
+                <label>柜体大小系数:</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="cabinet-size" value="small" required>小</label>
-                    <label><input type="radio" name="cabinet-size" value="medium">中</label>
-                    <label><input type="radio" name="cabinet-size" value="large">大</label>
+                    <label>
+                        <input type="radio" name="cabinet-size" value="small" required>
+                        小
+                        <input type="number" id="small-coefficient" value="2" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="cabinet-size" value="medium">
+                        中
+                        <input type="number" id="medium-coefficient" value="3" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="cabinet-size" value="large">
+                        大
+                        <input type="number" id="large-coefficient" value="4" step="0.1" min="0">
+                    </label>
                 </div>
             </div>
             <div class="form-group">
-                <label>产品分类:</label>
+                <label>产品分类系数:</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="electrical-product-type" value="normal" required>正常</label>
-                    <label><input type="radio" name="electrical-product-type" value="technical-reform">技改</label>
-                    <label><input type="radio" name="electrical-product-type" value="maintenance">维修</label>
+                    <label>
+                        <input type="radio" name="electrical-product-type" value="normal" required>
+                        正常
+                        <input type="number" id="normal-coefficient" value="1" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="electrical-product-type" value="technical-reform">
+                        技改
+                        <input type="number" id="technical-reform-coefficient" value="1.5" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="electrical-product-type" value="maintenance">
+                        维修
+                        <input type="number" id="maintenance-coefficient" value="2" step="0.1" min="0">
+                    </label>
                 </div>
             </div>
         </form>
