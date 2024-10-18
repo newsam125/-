@@ -14,65 +14,95 @@
         </header>
         <form id="wage-form" class="compact-form">
             <div class="form-group">
-                <label for="standardHourlyRate">标准工时(元/小时):</label>
-                <input type="number" id="standardHourlyRate" class="form-control" required value="30">
+                <label for="component-count">单级BOM清单数量:</label>
+                <input type="number" id="component-count" required min="1">
             </div>
             <div class="form-group">
                 <label for="unit-power">机组功率(kW):</label>
                 <input type="number" id="unit-power" required min="1">
             </div>
             <div class="form-group">
-                <label>产品类型系数:</label>
+                <label>制作工艺等级:</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="product-type" value="diesel" required>
+                        <input type="radio" name="craft-level" value="sample">
+                        样品
+                        <input type="number" id="sample-coefficient" value="20" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="craft-level" value="regular" checked>
+                        常规
+                        <input type="number" id="regular-coefficient" value="10" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="craft-level" value="technical-reform">
+                        技改
+                        <input type="number" id="technical-reform-coefficient" value="12" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="craft-level" value="maintenance">
+                        维修
+                        <input type="number" id="maintenance-coefficient" value="15" step="0.1" min="0">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>驱动类型:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="drive-type" value="diesel" checked>
                         柴油机
-                        <input type="number" id="diesel-coefficient" value="1" step="0.1" min="0">
+                        <input type="number" id="diesel-coefficient" value="10" step="0.1" min="0">
                     </label>
                     <label>
-                        <input type="radio" name="product-type" value="electric">
+                        <input type="radio" name="drive-type" value="electric">
                         电动机
-                        <input type="number" id="electric-coefficient" value="0.8" step="0.1" min="0">
+                        <input type="number" id="electric-coefficient" value="6" step="0.1" min="0">
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label>机组类型系数:</label>
+                <label>安装方式:</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="unit-type" value="fixed" required>
-                        固定机组
-                        <input type="number" id="fixed-coefficient" value="10" step="0.1" min="0">
+                        <input type="radio" name="installation-type" value="fixed" checked>
+                        固定
+                        <input type="number" id="fixed-coefficient" value="1" step="0.1" min="0">
                     </label>
                     <label>
-                        <input type="radio" name="unit-type" value="mobile">
-                        移动机组
-                        <input type="number" id="mobile-coefficient" value="12" step="0.1" min="0">
+                        <input type="radio" name="installation-type" value="mobile">
+                        移动
+                        <input type="number" id="mobile-coefficient" value="1.2" step="0.1" min="0">
                     </label>
                     <label>
-                        <input type="radio" name="unit-type" value="box-installation">
-                        箱式安装
-                        <input type="number" id="box-installation-coefficient" value="13" step="0.1" min="0">
+                        <input type="radio" name="installation-type" value="box">
+                        箱式
+                        <input type="number" id="box-coefficient" value="1.3" step="0.1" min="0">
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label>机组难度系数:</label>
+                <label>特殊要求:</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="custom-function">
+                        客户定制功能
+                        <input type="number" id="custom-function-coefficient" value="1.2" step="0.1" min="0">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>试验方式:</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="unit-difficulty" value="simple" required>
-                        简单
-                        <input type="number" id="simple-coefficient" value="1" step="0.1" min="0">
+                        <input type="radio" name="test-type" value="factory" checked>
+                        出厂试验
+                        <input type="number" id="factory-test-coefficient" value="1" step="0.1" min="0">
                     </label>
                     <label>
-                        <input type="radio" name="unit-difficulty" value="medium">
-                        中等
-                        <input type="number" id="medium-coefficient" value="1.5" step="0.1" min="0">
-                    </label>
-                    <label>
-                        <input type="radio" name="unit-difficulty" value="complex">
-                        复杂
-                        <input type="number" id="complex-coefficient" value="2" step="0.1" min="0">
+                        <input type="radio" name="test-type" value="certification">
+                        认证试验
+                        <input type="number" id="certification-test-coefficient" value="1.5" step="0.1" min="0">
                     </label>
                 </div>
             </div>

@@ -3,67 +3,85 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultElement = document.getElementById('result');
 
     function calculateWage() {
-        const standardHourlyRate = parseFloat(document.getElementById('standardHourlyRate').value);
+        const componentCount = parseInt(document.getElementById('component-count').value);
         const unitPower = parseFloat(document.getElementById('unit-power').value);
-        const productType = document.querySelector('input[name="product-type"]:checked').value;
-        const unitType = document.querySelector('input[name="unit-type"]:checked').value;
-        const unitDifficulty = document.querySelector('input[name="unit-difficulty"]:checked').value;
+        const craftLevel = document.querySelector('input[name="craft-level"]:checked').value;
+        const driveType = document.querySelector('input[name="drive-type"]:checked').value;
+        const installationType = document.querySelector('input[name="installation-type"]:checked').value;
+        const customFunction = document.getElementById('custom-function').checked;
+        const testType = document.querySelector('input[name="test-type"]:checked').value;
 
         // 计算难度系数
-        let difficultyCoefficent;
-        if (unitPower < 100) {
-            difficultyCoefficent = 8;
-        } else if (unitPower < 300) {
-            difficultyCoefficent = 10;
-        } else if (unitPower < 600) {
-            difficultyCoefficent = 12;
-        } else {
-            difficultyCoefficent = 15;
+        const difficultyCoefficent1 = Math.ceil(componentCount / 10);
+        const difficultyCoefficent2 = Math.ceil(unitPower / 75);
+
+        // 获取制作工艺等级系数
+        let craftLevelCoefficent;
+        switch (craftLevel) {
+            case 'sample':
+                craftLevelCoefficent = parseFloat(document.getElementById('sample-coefficient').value);
+                break;
+            case 'regular':
+                craftLevelCoefficent = parseFloat(document.getElementById('regular-coefficient').value);
+                break;
+            case 'technical-reform':
+                craftLevelCoefficent = parseFloat(document.getElementById('technical-reform-coefficient').value);
+                break;
+            case 'maintenance':
+                craftLevelCoefficent = parseFloat(document.getElementById('maintenance-coefficient').value);
+                break;
         }
 
-        // 获取产品类型系数
-        const productTypeCoefficent = productType === 'diesel' ? 
+        // 获取驱动类型系数
+        const driveTypeCoefficent = driveType === 'diesel' ? 
             parseFloat(document.getElementById('diesel-coefficient').value) : 
             parseFloat(document.getElementById('electric-coefficient').value);
 
-        // 获取机组类型系数
-        let unitTypeCoefficent;
-        switch (unitType) {
+        // 获取安装方式系数
+        let installationTypeCoefficent;
+        switch (installationType) {
             case 'fixed':
-                unitTypeCoefficent = parseFloat(document.getElementById('fixed-coefficient').value);
+                installationTypeCoefficent = parseFloat(document.getElementById('fixed-coefficient').value);
                 break;
             case 'mobile':
-                unitTypeCoefficent = parseFloat(document.getElementById('mobile-coefficient').value);
+                installationTypeCoefficent = parseFloat(document.getElementById('mobile-coefficient').value);
                 break;
-            case 'box-installation':
-                unitTypeCoefficent = parseFloat(document.getElementById('box-installation-coefficient').value);
-                break;
-        }
-
-        // 获取机组难度系数
-        let unitDifficultyCoefficent;
-        switch (unitDifficulty) {
-            case 'simple':
-                unitDifficultyCoefficent = parseFloat(document.getElementById('simple-coefficient').value);
-                break;
-            case 'medium':
-                unitDifficultyCoefficent = parseFloat(document.getElementById('medium-coefficient').value);
-                break;
-            case 'complex':
-                unitDifficultyCoefficent = parseFloat(document.getElementById('complex-coefficient').value);
+            case 'box':
+                installationTypeCoefficent = parseFloat(document.getElementById('box-coefficient').value);
                 break;
         }
 
-        // 计算工资
-        const wage = standardHourlyRate * difficultyCoefficent * productTypeCoefficent * unitTypeCoefficent * unitDifficultyCoefficent;
+        // 获取特殊要求系数
+        let specialRequirementCoefficent = 1;
+        if (customFunction) {
+            specialRequirementCoefficent *= parseFloat(document.getElementById('custom-function-coefficient').value);
+        }
 
-        return wage.toFixed(2); // 保留两位小数
+        // 获取试验方式系数
+        const testTypeCoefficent = testType === 'factory' ? 
+            parseFloat(document.getElementById('factory-test-coefficient').value) : 
+            parseFloat(document.getElementById('certification-test-coefficient').value);
+
+        // 计算总工资
+        const totalWage = difficultyCoefficent1 * difficultyCoefficent2 * craftLevelCoefficent * driveTypeCoefficent * 
+                          installationTypeCoefficent * specialRequirementCoefficent * testTypeCoefficent;
+
+        // 计算工序1和工序2的工资
+        const wage1 = (totalWage * 0.7).toFixed(2);
+        const wage2 = (totalWage * 0.3).toFixed(2);
+
+        return { total: totalWage.toFixed(2), wage1, wage2 };
     }
 
     function updateResult() {
         if (form.checkValidity()) {
-            const wage = calculateWage();
-            resultElement.textContent = `计算结果：${wage} 元`;
+            const wages = calculateWage();
+            resultElement.innerHTML = `
+                <p>计算结果：</p>
+                <p>总工资：${wages.total} 元</p>
+                <p>工序1（安装，布管布线）：${wages.wage1} 元</p>
+                <p>工序2（试验，喷漆，包装）：${wages.wage2} 元</p>
+            `;
             resultElement.style.display = 'block';
         } else {
             resultElement.style.display = 'none';
