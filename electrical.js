@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 计算难度系数
         const difficultyCoefficent1 = Math.ceil(componentCount / 10);
-        const difficultyCoefficent2 = Math.ceil(wireCount / 50);
+        const difficultyCoefficent2 = Math.ceil(wireCount / 20);
 
         // 获取制作工艺等级系数
         let craftLevelCoefficent;
