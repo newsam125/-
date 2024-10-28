@@ -9,9 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const cabinetSize = document.querySelector('input[name="cabinet-size"]:checked').value;
         const customFunction = document.getElementById('custom-function').checked;
 
-        // 计算难度系数
-        const difficultyCoefficent1 = Math.ceil(componentCount / 10);
-        const difficultyCoefficent2 = Math.ceil(wireCount / 20);
+        // 计算BOM难度系数
+        const componentDifficulty = Math.floor(componentCount / 5);   // 取整(BOM数量/5)
+
+        // 计算接线难度系数
+        let wireDifficulty;
+        if (wireCount <= 200) {
+            wireDifficulty = Math.floor(wireCount / 30);  // 接线数<=200
+        } else if (wireCount <= 1000) {
+            wireDifficulty = Math.floor(wireCount / 100); // 200<接线数<=1000
+        } else {
+            wireDifficulty = Math.floor(wireCount / 110); // 接线数>1000，更新除数为110
+        }
 
         // 获取制作工艺等级系数
         let craftLevelCoefficent;
@@ -33,13 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // 获取尺寸系数
         let sizeCoefficent;
         switch (cabinetSize) {
-            case 'small':
+            case 'small':  // ≤0.15m³
                 sizeCoefficent = parseFloat(document.getElementById('small-coefficient').value);
                 break;
-            case 'medium':
+            case 'medium': // 0.15m³<中≤0.5m³
                 sizeCoefficent = parseFloat(document.getElementById('medium-coefficient').value);
                 break;
-            case 'large':
+            case 'large':  // >0.5m³
                 sizeCoefficent = parseFloat(document.getElementById('large-coefficient').value);
                 break;
         }
@@ -50,10 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
             specialRequirementCoefficent *= parseFloat(document.getElementById('custom-function-coefficient').value);
         }
 
-        // 计算总工资
-        const totalWage = difficultyCoefficent1 * difficultyCoefficent2 * craftLevelCoefficent * sizeCoefficent * specialRequirementCoefficent;
+        // 计算总工资：取整(BOM数量/5)*接线难度*制作工艺等级*尺寸*特殊要求
+        const totalWage = componentDifficulty * wireDifficulty * craftLevelCoefficent * 
+                         sizeCoefficent * specialRequirementCoefficent;
 
-        // 计算工序1和工序2的工资
+        // 计算工序1（70%）和工序2（30%）的工资
         const wage1 = (totalWage * 0.7).toFixed(2);
         const wage2 = (totalWage * 0.3).toFixed(2);
 

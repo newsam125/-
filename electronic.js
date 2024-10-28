@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const craftLevel = document.querySelector('input[name="craft-level"]:checked').value;
         const customFunction = document.getElementById('custom-function').checked;
 
-        // 计算难度系数
-        const difficultyCoefficent = Math.ceil(componentCount / 10);
+        // 修改难度系数计算方式：取整(BOM数量/5)
+        const difficultyCoefficent = Math.floor(componentCount / 5);
 
         // 获取材料级别系数
         const materialLevelCoefficent = materialLevel === 'industrial' ? 
@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
             specialRequirementCoefficent *= parseFloat(document.getElementById('custom-function-coefficient').value);
         }
 
-        // 计算总工资
+        // 计算总工资：取整(BOM数量/5)*材料级别*制作工艺等级*特殊要求
         const totalWage = difficultyCoefficent * materialLevelCoefficent * craftLevelCoefficent * specialRequirementCoefficent;
 
-        // 计算工序1和工序2的工资
+        // 计算工序1（60%）和工序2（40%）的工资
         const wage1 = (totalWage * 0.6).toFixed(2);
         const wage2 = (totalWage * 0.4).toFixed(2);
 

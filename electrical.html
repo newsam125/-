@@ -14,7 +14,7 @@
         </header>
         <form id="wage-form" class="compact-form">
             <div class="form-group">
-                <label for="component-count">单级BOM清单数量:</label>
+                <label for="component-count">BOM物料总数量(不含可独立销售的成品或半成品）:</label>
                 <input type="number" id="component-count" required min="1">
             </div>
             <div class="form-group">
@@ -51,18 +51,18 @@
                 <div class="radio-group">
                     <label>
                         <input type="radio" name="cabinet-size" value="small">
-                        小(≤0.5m³)
+                        小(≤0.15m³)
                         <input type="number" id="small-coefficient" value="1" step="0.1" min="0">
                     </label>
                     <label>
                         <input type="radio" name="cabinet-size" value="medium" checked>
-                        中(>0.5m³且≤1m³)
-                        <input type="number" id="medium-coefficient" value="1.1" step="0.1" min="0">
+                        中(0.15m³<中≤0.5m³)
+                        <input type="number" id="medium-coefficient" value="1.8" step="0.1" min="0">
                     </label>
                     <label>
                         <input type="radio" name="cabinet-size" value="large">
-                        大(>1m³)
-                        <input type="number" id="large-coefficient" value="1.3" step="0.1" min="0">
+                        大(>0.5m³)
+                        <input type="number" id="large-coefficient" value="2.5" step="0.1" min="0">
                     </label>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <label>
                         <input type="checkbox" id="custom-function">
                         客户定制功能
-                        <input type="number" id="custom-function-coefficient" value="1.2" step="0.1" min="0">
+                        <input type="number" id="custom-function-coefficient" value="1.3" step="0.1" min="0">
                     </label>
                 </div>
             </div>
