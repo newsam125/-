@@ -198,3 +198,25 @@ input[type="number"], input[type="radio"] {
         padding: 8px 12px;
     }
 }
+
+/* 确保输入框始终可见 */
+.radio-group input[type="number"] {
+    display: inline-block;
+    width: 60px;
+    margin-left: 5px;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* 确保标签和输入框在同一行 */
+.radio-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* 调整单选按钮的样式 */
+.radio-group input[type="radio"] {
+    margin-right: 5px;
+}

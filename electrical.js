@@ -3,23 +3,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultElement = document.getElementById('result');
 
     function calculateWage() {
-        const componentCount = parseInt(document.getElementById('component-count').value);
-        const wireCount = parseInt(document.getElementById('wire-count').value);
+        const bomDifficultyLevel = document.querySelector('input[name="bom-difficulty"]:checked').value;
+        const wireDifficultyLevel = document.querySelector('input[name="wire-difficulty"]:checked').value;
         const craftLevel = document.querySelector('input[name="craft-level"]:checked').value;
         const cabinetSize = document.querySelector('input[name="cabinet-size"]:checked').value;
         const customFunction = document.getElementById('custom-function').checked;
 
-        // 计算BOM难度系数
-        const componentDifficulty = Math.floor(componentCount / 5);   // 取整(BOM数量/5)
+        // 获取BOM复杂度系数
+        let bomDifficulty;
+        let bomDifficultyFormula = '';
+        switch (bomDifficultyLevel) {
+            case 'simple':
+                bomDifficulty = parseFloat(document.getElementById('bom-simple-coefficient').value);
+                bomDifficultyFormula = `BOM复杂度（简单：≤1000）= ${bomDifficulty}`;
+                break;
+            case 'normal':
+                bomDifficulty = parseFloat(document.getElementById('bom-normal-coefficient').value);
+                bomDifficultyFormula = `BOM复杂度（普通：1000<BOM≤2000）= ${bomDifficulty}`;
+                break;
+            case 'complex':
+                bomDifficulty = parseFloat(document.getElementById('bom-complex-coefficient').value);
+                bomDifficultyFormula = `BOM复杂度（复杂：>2000）= ${bomDifficulty}`;
+                break;
+        }
 
-        // 计算接线难度系数
+        // 获取接线难度系数
         let wireDifficulty;
-        if (wireCount <= 200) {
-            wireDifficulty = Math.floor(wireCount / 30);  // 接线数<=200
-        } else if (wireCount <= 1000) {
-            wireDifficulty = Math.floor(wireCount / 100); // 200<接线数<=1000
-        } else {
-            wireDifficulty = Math.floor(wireCount / 110); // 接线数>1000，更新除数为110
+        let wireDifficultyFormula = '';
+        switch (wireDifficultyLevel) {
+            case 'simple':
+                wireDifficulty = parseFloat(document.getElementById('simple-coefficient').value);
+                wireDifficultyFormula = `接线难度（简单：≤200）= ${wireDifficulty}`;
+                break;
+            case 'normal':
+                wireDifficulty = parseFloat(document.getElementById('normal-coefficient').value);
+                wireDifficultyFormula = `接线难度（普通：200<接线数≤900）= ${wireDifficulty}`;
+                break;
+            case 'complex':
+                wireDifficulty = parseFloat(document.getElementById('complex-coefficient').value);
+                wireDifficultyFormula = `接线难度（复杂：>900）= ${wireDifficulty}`;
+                break;
         }
 
         // 获取制作工艺等级系数
@@ -42,13 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // 获取尺寸系数
         let sizeCoefficent;
         switch (cabinetSize) {
-            case 'small':  // ≤0.15m³
+            case 'small':
                 sizeCoefficent = parseFloat(document.getElementById('small-coefficient').value);
                 break;
-            case 'medium': // 0.15m³<中≤0.5m³
+            case 'medium':
                 sizeCoefficent = parseFloat(document.getElementById('medium-coefficient').value);
                 break;
-            case 'large':  // >0.5m³
+            case 'large':
                 sizeCoefficent = parseFloat(document.getElementById('large-coefficient').value);
                 break;
         }
@@ -59,21 +82,36 @@ document.addEventListener('DOMContentLoaded', function() {
             specialRequirementCoefficent *= parseFloat(document.getElementById('custom-function-coefficient').value);
         }
 
-        // 计算总工资：取整(BOM数量/5)*接线难度*制作工艺等级*尺寸*特殊要求
-        const totalWage = componentDifficulty * wireDifficulty * craftLevelCoefficent * 
+        // 计算总工资
+        const totalWage = bomDifficulty * wireDifficulty * craftLevelCoefficent * 
                          sizeCoefficent * specialRequirementCoefficent;
+        
+        const finalFormula = `计件工资 = ${bomDifficulty} × ${wireDifficulty} × ${craftLevelCoefficent} × ${sizeCoefficent} × ${specialRequirementCoefficent} = ${totalWage.toFixed(2)}`;
 
         // 计算工序1（70%）和工序2（30%）的工资
         const wage1 = (totalWage * 0.7).toFixed(2);
         const wage2 = (totalWage * 0.3).toFixed(2);
 
-        return { total: totalWage.toFixed(2), wage1, wage2 };
+        return { 
+            total: totalWage.toFixed(2), 
+            wage1, 
+            wage2,
+            formulas: {
+                bomDifficulty: bomDifficultyFormula,
+                wireDifficulty: wireDifficultyFormula,
+                final: finalFormula
+            }
+        };
     }
 
     function updateResult() {
         if (form.checkValidity()) {
             const wages = calculateWage();
             resultElement.innerHTML = `
+                <p>计算过程：</p>
+                <p>${wages.formulas.bomDifficulty}</p>
+                <p>${wages.formulas.wireDifficulty}</p>
+                <p>${wages.formulas.final}</p>
                 <p>计算结果：</p>
                 <p>总工资：${wages.total} 元</p>
                 <p>工序1（安装，布线）：${wages.wage1} 元</p>

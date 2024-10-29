@@ -4,17 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function calculateWage() {
         const componentCount = parseInt(document.getElementById('component-count').value);
-        const materialLevel = document.querySelector('input[name="material-level"]:checked').value;
         const craftLevel = document.querySelector('input[name="craft-level"]:checked').value;
         const customFunction = document.getElementById('custom-function').checked;
 
-        // 修改难度系数计算方式：取整(BOM数量/5)
-        const difficultyCoefficent = Math.floor(componentCount / 5);
-
-        // 获取材料级别系数
-        const materialLevelCoefficent = materialLevel === 'industrial' ? 
-            parseFloat(document.getElementById('industrial-coefficient').value) : 
-            parseFloat(document.getElementById('military-coefficient').value);
+        // 计算BOM难度系数
+        const componentDifficulty = Math.floor(componentCount / 5);   // 取整(BOM数量/5)
 
         // 获取制作工艺等级系数
         let craftLevelCoefficent;
@@ -39,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
             specialRequirementCoefficent *= parseFloat(document.getElementById('custom-function-coefficient').value);
         }
 
-        // 计算总工资：取整(BOM数量/5)*材料级别*制作工艺等级*特殊要求
-        const totalWage = difficultyCoefficent * materialLevelCoefficent * craftLevelCoefficent * specialRequirementCoefficent;
+        // 计算工作当量：取整(BOM数量/5)*制作工艺等级*特殊要求/15
+        const totalWage = (componentDifficulty * craftLevelCoefficent * specialRequirementCoefficent) / 15;
 
         // 计算工序1（60%）和工序2（40%）的工资
         const wage1 = (totalWage * 0.6).toFixed(2);
@@ -54,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const wages = calculateWage();
             resultElement.innerHTML = `
                 <p>计算结果：</p>
-                <p>总工资：${wages.total} 元</p>
-                <p>工序1（焊接，灌胶，老化）：${wages.wage1} 元</p>
-                <p>工序2（安装，调试，包装）：${wages.wage2} 元</p>
+                <p>总工作当量：${wages.total}</p>
+                <p>工序1（焊接，灌胶，老化）：${wages.wage1}</p>
+                <p>工序2（安装，调试，包装）：${wages.wage2}</p>
             `;
             resultElement.style.display = 'block';
         } else {
