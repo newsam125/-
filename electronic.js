@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             specialRequirementCoefficient *= parseFloat(document.getElementById('custom-function-coefficient').value);
         }
 
-        // 计算总工作当量
+        // 计算计件工资
         const totalWage = bomCoefficient * craftLevelCoefficient * specialRequirementCoefficient;
 
         return {
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p>3. 特殊要求：${formula.specialRequirementCoefficient === 1 ? '无' : '客户定制功能'}</p>
                 <p>   系数：${formula.specialRequirementCoefficient}</p>
                 <p>4. 计件工资计算公式：</p>
-                <p>   总工作当量 = BOM复杂度 × 制作工艺等级 × 特殊要求</p>
+                <p>   计件工资 = BOM复杂度 × 制作工艺等级 × 特殊要求</p>
                 <p>   = ${formula.bomCoefficient} × ${formula.craftLevelCoefficient} × ${formula.specialRequirementCoefficient}</p>
                 <p>   = ${wages.total}</p>
                 <hr>
