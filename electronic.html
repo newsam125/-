@@ -14,21 +14,27 @@
         </header>
         <form id="wage-form" class="compact-form">
             <div class="form-group">
-                <label for="component-count">BOM物料总数量(不含可独立销售的成品或半成品）:</label>
-                <input type="number" id="component-count" required min="1">
-            </div>
-            <div class="form-group">
-                <label>材料级别:</label>
+                <label>BOM复杂度:</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="material-level" value="industrial" required checked>
-                        工业
-                        <input type="number" id="industrial-coefficient" value="1" step="0.1" min="0">
+                        <input type="radio" name="bom-difficulty" value="simple">
+                        简单(≤30)
+                        <input type="number" id="bom-simple-coefficient" value="10" step="0.1" min="0">
                     </label>
                     <label>
-                        <input type="radio" name="material-level" value="military">
-                        军用
-                        <input type="number" id="military-coefficient" value="1.5" step="0.1" min="0">
+                        <input type="radio" name="bom-difficulty" value="normal" checked>
+                        普通(30<普通≤80)
+                        <input type="number" id="bom-normal-coefficient" value="20" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="bom-difficulty" value="medium-complex">
+                        较复杂(80<较复杂≤150)
+                        <input type="number" id="bom-medium-complex-coefficient" value="25" step="0.1" min="0">
+                    </label>
+                    <label>
+                        <input type="radio" name="bom-difficulty" value="complex">
+                        复杂(>150)
+                        <input type="number" id="bom-complex-coefficient" value="30" step="0.1" min="0">
                     </label>
                 </div>
             </div>
